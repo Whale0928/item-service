@@ -79,13 +79,14 @@ class ItemRepositoryTest {
     void updateCase() {
         //given
         Item old = new Item("old", 1000, 10);
-        Item newItem = new Item("newItem", 1200, 10);
+        Item newItem = new Item("newItem", 5000, 12);
         itemRepository.save(old);
         //when
         itemRepository.update(old.getId(),newItem);
         //then
         Item target = itemRepository.findById(old.getId());
-        assertThat(target.getItemName()).isEqualTo(newItem.getItemName());
+        assertThat(target.getId()).isEqualTo(old.getId());
         assertThat(target.getQuantity()).isEqualTo(newItem.getQuantity());
+        assertThat(target.getPrice()).isEqualTo(newItem.getPrice());
     }
 }
