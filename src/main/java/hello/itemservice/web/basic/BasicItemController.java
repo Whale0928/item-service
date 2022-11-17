@@ -3,7 +3,6 @@ package hello.itemservice.web.basic;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -80,6 +79,13 @@ public class BasicItemController {
         return "redirect:/basic/item";
     }
 
+    /**수정 화면 페이지 이동
+     * Edit string.
+     *
+     * @param itemId the item id
+     * @param model  the model
+     * @return the string
+     */
     @GetMapping("{itemId}/edit")
     public String edit(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
@@ -88,12 +94,19 @@ public class BasicItemController {
     }
 
 
+    /**수정 내용 저장
+     * Edit string.
+     *
+     * @param itemId the item id
+     * @param item   the item
+     * @return the string
+     */
     @PostMapping("{itemId}/edit")
     public String edit(@PathVariable Long itemId
             , @ModelAttribute("item") Item item) {
 //               스프링이 모델에 객체를 매핑하면서 보관해준다. 모델 안에 지정 해둔 이름으로 뷰에서 사용된다 생략될 경우 클래스명이 이름으로 사용된다. (첫글자는 소문자로 변환)
         itemRepository.update(itemId, item);
-        item = itemRepository.findById(itemId);
+        itemRepository.findById(itemId);
 //        model.addAttribute("item", updateItem);
     return  "redirect:/basic/items/"+itemId;
     }
