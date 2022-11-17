@@ -87,7 +87,6 @@ public class BasicItemController {
         return "basic/editForm";
     }
 
-    @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
     @PostMapping("{itemId}/edit")
     public String edit(@PathVariable Long itemId
             , @ModelAttribute Item newItem
@@ -95,6 +94,6 @@ public class BasicItemController {
         itemRepository.update(itemId, newItem);
         Item updateItem = itemRepository.findById(itemId);
         model.addAttribute("item", updateItem);
-    return "basic/item";
+    return  "redirect:/basic/items/"+itemId;
     }
 }

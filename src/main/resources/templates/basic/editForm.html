@@ -18,7 +18,7 @@
         <h2>상품 수정 폼</h2>
     </div>
 
-    <form action="item.html" method="post">
+    <form th:action="|@{/basic/items/{itemId}/edit(itemId=${item.id})}|" method="post">
         <div>
             <label for="id">상품 ID</label>
             <input type="text" id="id" name="id" class="form-control" th:value="${item.id}" readonly>
