@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -73,10 +74,12 @@ public class BasicItemController {
      * @return the string
      */
     @PostMapping("/add")
-    public String save(Model model, @ModelAttribute Item item) {
+    public String save(@ModelAttribute Item item, RedirectAttributes ra) {
         Item saveItem = itemRepository.save(item);
-        model.addAttribute("item", saveItem);
-        return "redirect:/basic/item";
+        ra.addAttribute("itemId",saveItem.getId());
+        ra.addAttribute("status",true);//저장된 경우
+        return "redirect:/basic/item/{itemId}";
+        //status 쿼리파라미터 형태로 반환된다.
     }
 
     /**수정 화면 페이지 이동
