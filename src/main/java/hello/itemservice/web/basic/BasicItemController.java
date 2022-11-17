@@ -77,7 +77,7 @@ public class BasicItemController {
     public String save(Model model, @ModelAttribute Item item) {
         Item saveItem = itemRepository.save(item);
         model.addAttribute("item", saveItem);
-        return "basic/item";
+        return "redirect:/basic/item";
     }
 
     @GetMapping("{itemId}/edit")
@@ -86,6 +86,7 @@ public class BasicItemController {
         model.addAttribute("item", item);
         return "basic/editForm";
     }
+
 
     @PostMapping("{itemId}/edit")
     public String edit(@PathVariable Long itemId
