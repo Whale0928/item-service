@@ -89,11 +89,11 @@ public class BasicItemController {
 
     @PostMapping("{itemId}/edit")
     public String edit(@PathVariable Long itemId
-            , @ModelAttribute Item newItem
-            , Model model) {
-        itemRepository.update(itemId, newItem);
-        Item updateItem = itemRepository.findById(itemId);
-        model.addAttribute("item", updateItem);
+            , @ModelAttribute("item") Item item) {
+//               스프링이 모델에 객체를 매핑하면서 보관해준다. 모델 안에 지정 해둔 이름으로 뷰에서 사용된다 생략될 경우 클래스명이 이름으로 사용된다. (첫글자는 소문자로 변환)
+        itemRepository.update(itemId, item);
+        item = itemRepository.findById(itemId);
+//        model.addAttribute("item", updateItem);
     return  "redirect:/basic/items/"+itemId;
     }
 }
